@@ -1,0 +1,151 @@
+/* Custom styles & Flipbook 3D effects */
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Paper texture and spine gradient */
+.book-spine-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.05) 3%,
+    rgba(255, 255, 255, 0.3) 6%,
+    rgba(0, 0, 0, 0) 12%,
+    rgba(0, 0, 0, 0) 88%,
+    rgba(255, 255, 255, 0.3) 94%,
+    rgba(0, 0, 0, 0.05) 97%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+.book-left-page-spine {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.04) 4%, transparent 12%);
+}
+
+.book-right-page-spine {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.04) 4%, transparent 12%);
+}
+
+/* Page curl dog-ear on corner */
+.page-dogear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 36px 36px;
+  border-color: transparent transparent #fbbf24 transparent;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: -2px -2px 6px rgba(245, 158, 11, 0.25);
+  cursor: pointer;
+  z-index: 25;
+}
+
+.page-dogear:hover {
+  border-width: 0 0 54px 54px;
+  border-color: transparent transparent #f59e0b transparent;
+  box-shadow: -4px -4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.page-dogear-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 36px 0 0 36px;
+  border-color: transparent transparent transparent #fbbf24;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 2px -2px 6px rgba(245, 158, 11, 0.25);
+  cursor: pointer;
+  z-index: 25;
+}
+
+.page-dogear-left:hover {
+  border-width: 54px 0 0 54px;
+  border-color: transparent transparent transparent #f59e0b;
+  box-shadow: 4px -4px 12px rgba(245, 158, 11, 0.4);
+}
+
+/* Page flipping animations */
+@keyframes flipToNext {
+  0% {
+    transform: rotateY(0deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: rotateY(-90deg) scale(0.95);
+    box-shadow: -20px 0 30px rgba(0, 0, 0, 0.25);
+  }
+  100% {
+    transform: rotateY(-180deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes flipToPrev {
+  0% {
+    transform: rotateY(-180deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: rotateY(-90deg) scale(0.95);
+    box-shadow: 20px 0 30px rgba(0, 0, 0, 0.25);
+  }
+  100% {
+    transform: rotateY(0deg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.animate-page-flip-next {
+  transform-origin: left center;
+  animation: flipToNext 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-page-flip-prev {
+  transform-origin: right center;
+  animation: flipToPrev 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Paper edge stack effect */
+.book-edge-stack-right {
+  box-shadow:
+    1px 0 0 #f0ece1,
+    2px 0 0 #ded7c6,
+    3px 0 0 #f0ece1,
+    4px 0 0 #ded7c6,
+    5px 0 0 #f0ece1,
+    6px 2px 8px rgba(0,0,0,0.12),
+    12px 6px 18px rgba(0,0,0,0.18);
+}
+
+.book-edge-stack-left {
+  box-shadow:
+    -1px 0 0 #f0ece1,
+    -2px 0 0 #ded7c6,
+    -3px 0 0 #f0ece1,
+    -4px 0 0 #ded7c6,
+    -5px 0 0 #f0ece1,
+    -6px 2px 8px rgba(0,0,0,0.12),
+    -12px 6px 18px rgba(0,0,0,0.18);
+}
